@@ -65,6 +65,11 @@ function uiToggleStateButton(pressed) {
     }
 }
 
+function uiTemp(val) {
+    const el = document.getElementById("temp-val");
+		el.innerText = val;
+}
+
 function uiToggleDeviceConnected(connected) {
     const elStatus = document.getElementById("status");
     const elControls = document.getElementById("controls");
@@ -246,6 +251,7 @@ function liffGetButtonStateCharacteristic(characteristic) {
     characteristic.startNotifications().then(() => {
         characteristic.addEventListener('characteristicvaluechanged', e => {
             const val = (new Uint8Array(e.target.value.buffer))[0];
+			uiTemp(val);
             if (val > 0) {
                 // press
                 uiToggleStateButton(true);
